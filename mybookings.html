@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNbite - My Bookings</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        body {
+            background: #0f0f1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #d81f26 0%, #a01520 100%);
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(216,31,38,0.3);
+        }
+
+        header h2 {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        header h2 span {
+            color: #ffd700;
+        }
+
+        .bookings-container {
+            width: 92%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding-bottom: 40px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.06);
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .booking-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 22px 24px;
+            margin-bottom: 16px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+
+        .booking-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(216,31,38,0.2);
+            transform: translateY(-2px);
+        }
+
+        .booking-info h3 {
+            color: #ffd700;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .booking-info p {
+            color: #999;
+            margin: 4px 0;
+            font-size: 14px;
+        }
+
+        .booking-info p b {
+            color: #ccc;
+        }
+
+        .booking-right {
+            text-align: right;
+        }
+
+        .booking-amount {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .badge-confirmed {
+            display: inline-block;
+            background: rgba(76,175,80,0.15);
+            color: #66bb6a;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-id-tag {
+            display: inline-block;
+            background: rgba(216,31,38,0.1);
+            color: #ff6b6b;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .no-bookings {
+            text-align: center;
+            padding: 60px 30px;
+            background: rgba(255,255,255,0.03);
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 16px;
+        }
+
+        .no-bookings .empty-icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-bookings p {
+            font-size: 18px;
+            color: #777;
+            margin-bottom: 16px;
+        }
+
+        .no-bookings a {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #d81f26, #ff3b3b);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(216,31,38,0.3);
+        }
+
+        .no-bookings a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216,31,38,0.4);
+        }
+
+        .clear-btn {
+            background: rgba(255,75,75,0.08);
+            color: #ff6b6b;
+            border: 1px solid rgba(255,75,75,0.15);
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .clear-btn:hover {
+            background: rgba(255,75,75,0.15);
+        }
+
+        @media(max-width:600px) {
+            .booking-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .booking-right {
+                text-align: left;
+            }
+            .page-title {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h2>Book<span>N</span>bite</h2>
+        </div>
+    </header>
+
+    <div class="bookings-container">
+        <div class="page-title">
+            <div>
+                <a href="index.html" class="back-btn"><i class="fa fa-arrow-left"></i> Back to Home</a>
+            </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2>🎟️ My Booking History</h2>
+            <button class="clear-btn" id="clearBtn" onclick="clearBookings()" style="display:none;">
+                <i class="fa fa-trash"></i> Clear All
+            </button>
+        </div>
+
+        <div id="historyList"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const historyList = document.getElementById("historyList");
+            const clearBtn = document.getElementById("clearBtn");
+            const bookings = JSON.parse(localStorage.getItem("bookingHistory")) || [];
+
+            if (bookings.length === 0) {
+                historyList.innerHTML = `
+                    <div class="no-bookings">
+                        <div class="empty-icon">🎬</div>
+                        <p>No bookings found yet</p>
+                        <a href="index.html">Browse Movies</a>
+                    </div>
+                `;
+                return;
+            }
+
+            clearBtn.style.display = "inline-flex";
+
+            // Render tickets in reverse chronological order (newest first)
+            historyList.innerHTML = bookings.slice().reverse().map(b => `
+                <div class="booking-card">
+                    <div class="booking-info">
+                        <div class="booking-id-tag">${b.id}</div>
+                        <h3>${b.movie}</h3>
+                        <p><b>Theatre:</b> ${b.theatre}</p>
+                        <p><b>Seats:</b> ${b.seats} &nbsp;|&nbsp; <b>Time:</b> ${b.showTime}</p>
+                        <p><b>Booked On:</b> ${b.date}</p>
+                    </div>
+                    <div class="booking-right">
+                        <div class="booking-amount">₹${b.amount}</div>
+                        <span class="badge-confirmed"><i class="fa fa-check-circle"></i> Confirmed</span>
+                    </div>
+                </div>
+            `).join('');
+        });
+
+        function clearBookings() {
+            if (confirm("Are you sure you want to clear all booking history?")) {
+                localStorage.removeItem("bookingHistory");
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

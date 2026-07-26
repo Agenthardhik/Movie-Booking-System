@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookNbite - Seat Booking</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',Arial,sans-serif;
+}
+
+body{
+background:#0f0f1a;
+color:#fff;
+min-height:100vh;
+}
+
+header{
+background: linear-gradient(135deg, #d81f26 0%, #a01520 100%);
+color:white;
+padding:18px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow: 0 4px 20px rgba(216,31,38,0.3);
+}
+
+header h1{
+font-size:24px;
+font-weight:700;
+}
+
+.movie-title{
+font-size:15px;
+opacity:0.9;
+font-weight:400;
+}
+
+.back-link{
+color:white;
+text-decoration:none;
+font-size:14px;
+opacity:0.8;
+transition: opacity 0.2s;
+}
+
+.back-link:hover{
+opacity:1;
+}
+
+.container{
+width:92%;
+max-width:900px;
+margin:30px auto;
+padding-bottom:40px;
+}
+
+/* Selection Row */
+.selection-row{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:16px;
+margin-bottom:30px;
+}
+
+.selection-group{
+background: rgba(255,255,255,0.06);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius:12px;
+padding:16px;
+backdrop-filter: blur(10px);
+}
+
+.selection-group label{
+font-weight:600;
+display:block;
+margin-bottom:10px;
+font-size:13px;
+color:#aaa;
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+.selection-group select,
+.selection-group input{
+width:100%;
+padding:10px 12px;
+border:1px solid rgba(255,255,255,0.12);
+border-radius:8px;
+background:#1a1a2e;
+color:#fff;
+font-size:15px;
+outline:none;
+transition: border-color 0.2s;
+}
+
+.selection-group select:focus,
+.selection-group input:focus{
+border-color: #d81f26;
+}
+
+/* Screen */
+.screen-wrapper{
+text-align:center;
+margin:30px 0 20px;
+}
+
+.screen{
+width:60%;
+margin:0 auto;
+padding:8px 0;
+background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+border-radius: 4px 4px 50% 50%;
+text-align:center;
+font-size:12px;
+font-weight:600;
+color:#888;
+letter-spacing:3px;
+text-transform:uppercase;
+box-shadow: 0 2px 20px rgba(255,255,255,0.05);
+}
+
+/* Seat Legend */
+.seat-legend{
+display:flex;
+justify-content:center;
+gap:25px;
+margin:20px 0;
+font-size:13px;
+color:#aaa;
+}
+
+.seat-legend span{
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.legend-box{
+width:18px;
+height:18px;
+border-radius:4px;
+display:inline-block;
+}
+
+.legend-available{
+background:#2d7a3a;
+}
+
+.legend-selected{
+background:#d81f26;
+}
+
+.legend-taken{
+background:#333;
+}
+
+/* Seats */
+.seats{
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:8px;
+justify-content:center;
+max-width:520px;
+margin:0 auto;
+padding:20px 0;
+}
+
+.seat{
+aspect-ratio:1;
+max-width:46px;
+background: linear-gradient(145deg, #2d7a3a, #236b2e);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+border-radius:8px;
+font-size:13px;
+font-weight:600;
+transition:all 0.2s ease;
+border:2px solid transparent;
+position:relative;
+}
+
+.seat:hover{
+transform:scale(1.1);
+box-shadow:0 0 12px rgba(45,122,58,0.5);
+border-color:rgba(255,255,255,0.3);
+}
+
+.seat.selected{
+background: linear-gradient(145deg, #d81f26, #b5161d);
+box-shadow:0 0 15px rgba(216,31,38,0.5);
+transform:scale(1.05);
+border-color:rgba(255,255,255,0.2);
+}
+
+.seat.taken{
+background:#2a2a3a;
+color:#555;
+cursor:not-allowed;
+pointer-events:none;
+}
+
+.seat.taken:hover{
+transform:none;
+box-shadow:none;
+}
+
+/* Gap for aisle */
+.seat:nth-child(5n){
+margin-right:4px;
+}
+
+/* Summary Card */
+.summary{
+margin-top:30px;
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius:16px;
+padding:24px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:16px;
+backdrop-filter: blur(10px);
+}
+
+.summary-info{
+display:flex;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.summary-item{
+text-align:center;
+}
+
+.summary-item .label{
+font-size:12px;
+color:#888;
+text-transform:uppercase;
+letter-spacing:1px;
+margin-bottom:4px;
+}
+
+.summary-item .value{
+font-size:24px;
+font-weight:700;
+color:#ffd700;
+}
+
+.selected-seats-display{
+font-size:14px;
+color:#ccc;
+margin-top:4px;
+}
+
+button.proceed-btn{
+padding:14px 40px;
+background: linear-gradient(135deg, #d81f26, #ff3b3b);
+color:white;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:17px;
+font-weight:600;
+letter-spacing:0.5px;
+transition:all 0.3s ease;
+box-shadow: 0 4px 20px rgba(216,31,38,0.3);
+}
+
+button.proceed-btn:hover{
+transform:translateY(-2px);
+box-shadow: 0 6px 30px rgba(216,31,38,0.5);
+}
+
+button.proceed-btn:active{
+transform:translateY(0);
+}
+
+/* Row Labels */
+.seat-section{
+max-width:580px;
+margin:0 auto;
+}
+
+.seat-row{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:8px;
+}
+
+.row-label{
+width:22px;
+font-size:14px;
+font-weight:700;
+color:#666;
+text-align:center;
+flex-shrink:0;
+}
+
+.row-seats{
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:8px;
+flex:1;
+}
+
+@media(max-width:768px){
+  .selection-row{
+    grid-template-columns:1fr;
+  }
+  .summary{
+    flex-direction:column;
+    text-align:center;
+  }
+  .summary-info{
+    justify-content:center;
+  }
+  header{
+    flex-direction:column;
+    gap:8px;
+    text-align:center;
+  }
+  .row-seats{
+    grid-template-columns:repeat(10,1fr);
+    gap:5px;
+  }
+  .seat{
+    font-size:11px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Home</a>
+  <div style="text-align:center;">
+    <h1>Select Your Seats</h1>
+    <p class="movie-title" id="movieTitle">Loading...</p>
+  </div>
+  <div style="width:60px;"></div>
+</header>
+
+<div class="container">
+
+  <div class="selection-row">
+    <div class="selection-group">
+      <label>Theatre</label>
+      <select id="theatreSelect">
+        <option>PVR Cinemas</option>
+        <option>INOX</option>
+        <option>Cinepolis</option>
+        <option>Asian Cinemas</option>
+      </select>
+    </div>
+
+    <div class="selection-group">
+      <label>Date</label>
+      <input type="date" id="dateInput">
+    </div>
+
+    <div class="selection-group">
+      <label>Showtime</label>
+      <select id="timeSelect">
+        <option>10:00 AM</option>
+        <option>1:30 PM</option>
+        <option>5:00 PM</option>
+        <option>9:00 PM</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="screen-wrapper">
+    <div class="screen">SCREEN</div>
+  </div>
+
+  <div class="seat-legend">
+    <span><span class="legend-box legend-available"></span> Available</span>
+    <span><span class="legend-box legend-selected"></span> Selected</span>
+    <span><span class="legend-box legend-taken"></span> Taken</span>
+  </div>
+
+  <div class="seat-section" id="seatSection"></div>
+
+  <div class="summary">
+    <div class="summary-info">
+      <div class="summary-item">
+        <div class="label">Seats</div>
+        <div class="value" id="count">0</div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Total</div>
+        <div class="value">₹<span id="price">0</span></div>
+      </div>
+      <div class="summary-item">
+        <div class="label">Selected</div>
+        <div class="selected-seats-display" id="seatNames">None</div>
+      </div>
+    </div>
+
+    <button class="proceed-btn" onclick="nextPage()">
+      Proceed to Snacks <i class="fa fa-arrow-right"></i>
+    </button>
+  </div>
+
+</div>
+
+<script>
+
+const seatSection = document.getElementById("seatSection");
+const countEl = document.getElementById("count");
+const priceEl = document.getElementById("price");
+const seatNamesEl = document.getElementById("seatNames");
+const movieTitleEl = document.getElementById("movieTitle");
+
+const ticketPrice = 250;
+let selectedSeats = [];
+
+// Load movie name
+const movieName = localStorage.getItem("selectedMovie") || "Unknown Movie";
+movieTitleEl.textContent = movieName;
+
+// Set default date to today
+const dateInput = document.getElementById("dateInput");
+const today = new Date();
+const yyyy = today.getFullYear();
+const mm = String(today.getMonth() + 1).padStart(2, '0');
+const dd = String(today.getDate()).padStart(2, '0');
+dateInput.value = `${yyyy}-${mm}-${dd}`;
+dateInput.min = `${yyyy}-${mm}-${dd}`;
+
+// Pre-fill some random "taken" seats
+const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
+const seatsPerRow = 10;
+const totalSeats = rows.length * seatsPerRow;
+
+// Random taken seats (different each time based on movie name hash)
+const takenSeats = new Set();
+let hash = 0;
+for (let i = 0; i < movieName.length; i++) {
+  hash = ((hash << 5) - hash) + movieName.charCodeAt(i);
+  hash |= 0;
+}
+const rng = Math.abs(hash);
+for (let i = 0; i < 8; i++) {
+  takenSeats.add(((rng * (i + 7) + i * 13) % totalSeats) + 1);
+}
+
+// Build seat grid with row labels
+let seatIndex = 0;
+rows.forEach((rowLetter, rowIdx) => {
+  const rowDiv = document.createElement("div");
+  rowDiv.className = "seat-row";
+
+  const label = document.createElement("div");
+  label.className = "row-label";
+  label.textContent = rowLetter;
+  rowDiv.appendChild(label);
+
+  const rowSeats = document.createElement("div");
+  rowSeats.className = "row-seats";
+
+  for (let col = 1; col <= seatsPerRow; col++) {
+    seatIndex++;
+    const seat = document.createElement("div");
+    seat.className = "seat";
+    const seatId = `${rowLetter}${col}`;
+    seat.textContent = col;
+    seat.dataset.seatId = seatId;
+    seat.dataset.index = seatIndex;
+
+    if (takenSeats.has(seatIndex)) {
+      seat.classList.add("taken");
+      seat.title = "Already booked";
+    } else {
+      seat.onclick = function () {
+        if (seat.classList.contains("selected")) {
+          seat.classList.remove("selected");
+          selectedSeats = selectedSeats.filter(s => s !== seatId);
+        } else {
+          seat.classList.add("selected");
+          selectedSeats.push(seatId);
+        }
+        updateSummary();
+      };
+    }
+
+    rowSeats.appendChild(seat);
+  }
+
+  rowDiv.appendChild(rowSeats);
+
+  const labelRight = document.createElement("div");
+  labelRight.className = "row-label";
+  labelRight.textContent = rowLetter;
+  rowDiv.appendChild(labelRight);
+
+  seatSection.appendChild(rowDiv);
+});
+
+function updateSummary() {
+  const count = selectedSeats.length;
+  countEl.textContent = count;
+  priceEl.textContent = count * ticketPrice;
+  seatNamesEl.textContent = count > 0 ? selectedSeats.join(", ") : "None";
+}
+
+function nextPage() {
+  if (selectedSeats.length === 0) {
+    alert("Please select at least one seat.");
+    return;
+  }
+
+  const theatre = document.getElementById("theatreSelect").value;
+  const date = document.getElementById("dateInput").value;
+  const time = document.getElementById("timeSelect").value;
+
+  // Save all booking details to localStorage
+  localStorage.setItem("selectedMovie", movieName);
+  localStorage.setItem("theatre", theatre);
+  localStorage.setItem("showDate", date);
+  localStorage.setItem("showTime", time);
+  localStorage.setItem("selectedSeats", selectedSeats.join(", "));
+  localStorage.setItem("ticketTotal", selectedSeats.length * ticketPrice);
+
+  window.location = "snacks.html";
+}
+
+</script>
+
+</body>
+</html>

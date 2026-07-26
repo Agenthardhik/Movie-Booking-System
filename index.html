@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNbite - Book Movies & Order Snacks</title>
+    <meta name="description" content="BookNbite - Your one-stop platform to book movie tickets, choose seats, and order snacks. Now showing the latest movies!">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header>
+
+<div class="logo">
+<h2>Book<span>Nbite</span></h2>
+</div>
+
+<div class="search-box">
+<i class="fa fa-search"></i>
+<input type="text" placeholder="Search Movies...">
+</div>
+
+<div class="right-menu">
+
+<select>
+<option>Hyderabad</option>
+<option>Visakhapatnam</option>
+<option>Chennai</option>
+<option>Bengaluru</option>
+<option>Kochi</option>
+</select>
+
+<button class="signin" id="navAuthBtn">Sign In</button>
+
+<i class="fa-solid fa-bars menu"></i>
+
+</div>
+
+</header>
+
+<!-- Navbar -->
+
+<nav>
+  <ul>
+    <li><a href="#recommended">Now Showing</a></li>
+    <li><a href="#upcoming">Coming Soon</a></li>
+    <li><a href="#snacks">Snacks</a></li>
+    <li><a href="mybookings.html">My Bookings</a></li>
+  </ul>
+</nav>
+
+<!-- Banner -->
+
+<section class="banner">
+
+<img id="slider"
+src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1400"
+alt="Cinema Banner">
+
+</section>
+
+<!-- Recommended Movies -->
+
+<section class="movies" id="recommended">
+
+<h2>Recommended Movies</h2>
+
+<div class="movie-container">
+
+<!-- Spider-Man Card -->
+<div class="card">
+  <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/35c4e7248463279.69f1f55ed12da.jpg" alt="Spider-Man Poster">
+  <h3>Spider-Man: Brand New Day</h3>
+  <p>Action | Adventure</p>
+  <button onclick="bookMovie('Spider-Man: Brand New Day')">Book Now</button>
+</div>
+
+<!-- Jana Nayagan Card -->
+<div class="card">
+  <img src="https://i.pinimg.com/736x/63/1d/52/631d5294d4229a64b7d1aba832bb4a3a.jpg" alt="Jana Nayagan Poster">
+  <h3>Jana Nayagan</h3>
+  <p>Action</p>
+  <button onclick="bookMovie('Jana Nayagan')">Book Now</button>
+</div>
+
+<!-- The Odyssey Card -->
+<div class="card">
+  <img src="https://static1.tribute.ca/poster/660x980/the-odyssey-288322.jpg" alt="The Odyssey Poster">
+  <h3>The Odyssey</h3>
+  <p>Adventure</p>
+  <button onclick="bookMovie('The Odyssey')">Book Now</button>
+</div>
+
+<div class="card">
+
+  <img src="https://images.filmibeat.com/ph-big/2026/01/lenin1767699826_2.jpeg" alt="Lenin Poster">
+
+  <h3>Lenin</h3>
+
+  <p>Drama</p>
+
+  <button onclick="bookMovie('Lenin')">Book Now</button>
+
+</div>
+
+<div class="card">
+
+  <img src="https://cdn.shopify.com/s/files/1/1416/8662/products/good_boy_2003_original_film_art_800x.jpg?v=1597004064" alt="Good Boy Poster">
+
+  <h3>Good Boy</h3>
+
+  <p>Horror</p>
+
+  <button onclick="bookMovie('Good Boy')">Book Now</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Snacks Section -->
+<section class="snacks" id="snacks">
+  <h2>Popular Snacks</h2>
+
+  <div class="snack-container">
+
+    <div class="snack popcorn-bg">
+      <div class="snack-content">
+        🍿
+        <h3>Popcorn</h3>
+        <p>₹250</p>
+        <button>Add</button>
+      </div>
+    </div>
+
+    <div class="snack softdrink-bg">
+      <div class="snack-content">
+        🥤
+        <h3>Soft Drinks</h3>
+        <p>₹120</p>
+        <button>Add</button>
+      </div>
+    </div>
+
+    <div class="snack burger-bg">
+      <div class="snack-content">
+        🍔
+        <h3>Burger</h3>
+        <p>₹180</p>
+        <button>Add</button>
+      </div>
+    </div>
+
+    <div class="snack pizza-bg">
+      <div class="snack-content">
+        🍕
+        <h3>Pizza</h3>
+        <p>₹350</p>
+        <button>Add</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Upcoming Movies Section -->
+<section class="movies" id="upcoming">
+  <h2>Coming Soon</h2>
+  <div class="movie-container">
+
+    <div class="card">
+  <img src="https://www.joblo.com/wp-content/uploads/2026/07/avengers-doomsday-poster-2.jpg" alt="Avengers: Doomsday Poster">
+  <h3>Avengers: Doomsday</h3>
+  <p>Action | Sci-Fi</p>
+  <button class="coming-soon-btn" disabled style="background:#888; cursor:not-allowed;">Releasing 2026</button>
+</div>
+
+    <div class="card">
+  <img src="https://pbs.twimg.com/media/HBFgfYzaMAAFQiL.jpg" alt="The Paradise Poster">
+  <h3>The Paradise</h3>
+  <p>Drama | Thriller</p>
+  <button class="coming-soon-btn" disabled style="background:#888; cursor:not-allowed;">Releasing 2026</button>
+</div>
+
+    <div class="card">
+  <img src="https://www.telugubulletin.com/wp-content/uploads/2022/12/Spirit-Prabhas.jpg" alt="Spirit Poster">
+  <h3>Spirit</h3>
+  <p>Action | Crime</p>
+  <button class="coming-soon-btn" disabled style="background:#888; cursor:not-allowed;">Releasing 2026</button>
+</div>
+
+    <div class="card">
+  <img src="https://media2.firstshowing.net/firstshowing/img17/Varanasiposter1mainepicbig591.jpg" alt="Varanasi Poster">
+  <h3>Varanasi</h3>
+  <p>Mystery | Fantasy</p>
+  <button class="coming-soon-btn" disabled style="background:#888; cursor:not-allowed;">Releasing 2026</button>
+</div>
+
+    <div class="card">
+  <img src="https://images.filmibeat.com/img/280x383/popcorn/movie_posters/dragon-20260520122650-19909.jpg" alt="Dragon Poster">
+  <h3>Dragon</h3>
+  <p>Action | Fantasy</p>
+  <button class="coming-soon-btn" disabled style="background:#888; cursor:not-allowed;">Releasing 2026</button>
+</div>
+    
+
+  </div>
+</section>
+
+<!-- Footer -->
+
+<footer>
+  <h2>BookNbite</h2>
+  <p>Book Movies | Order Snacks | Enjoy Your Show</p>
+  <p>© 2026 BookNbite. All Rights Reserved.</p>
+</footer>
+
+<!-- Chatbot -->
+<div id="chatbot">
+  <div class="chat-header" onclick="toggleChat()">
+    <span>🤖 BookNbite AI</span>
+    <i class="fa fa-chevron-up" id="chatToggleIcon"></i>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <p id="botReply" class="bot-message">Hi! How can I help you today?</p>
+    <div class="chat-input-row">
+      <input id="userMsg" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')reply()">
+      <button onclick="reply()"><i class="fa fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeLoginModal()">&times;</span>
+    <h2 id="modalTitle">Sign In</h2>
+    
+    <form id="authForm" onsubmit="handleAuth(event)">
+      <div class="input-group">
+        <label for="userEmail">Email / Mobile</label>
+        <input type="text" id="userEmail" placeholder="Enter email or phone" required>
+      </div>
+
+      <div class="input-group">
+        <label for="userPassword">Password</label>
+        <input type="password" id="userPassword" placeholder="Enter password" required>
+      </div>
+
+      <button type="submit" class="modal-submit-btn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
